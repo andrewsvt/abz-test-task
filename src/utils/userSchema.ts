@@ -39,14 +39,12 @@ export const userSchema = yup.object({
     .required('Required field')
     .matches(/^[\+]{0,1}380([0-9]{9})$/, 'Invalid phone format'),
   position_id: yup.string().required('Required field'),
-  image: yup
+  photo: yup
     .mixed()
     .required('Required field')
-    .test('fileSize', 'The file is too large', (value) => {
-      return value[0].size <= 5242880;
-    })
+    .test('fileSize', 'The file is too large', (value) => value[0].size <= 5242880)
     .test('type', 'Only jpeg images supported', (value) => {
       return value[0].type === ('image/jpeg' || 'image/jpg');
-    })
-    .test('fileResolution', 'Image must be 70x70 at least', fileResolution),
+    }),
+  // .test('fileResolution', 'Image must be 70x70 at least', fileResolution),
 });

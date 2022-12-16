@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useState } from 'react';
+import React, { MutableRefObject } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -34,12 +34,6 @@ const innerTheme: Theme = createTheme({
 });
 
 const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
-  const [token, setToken] = useState<string>('');
-
-  // useEffect(() => {
-  //   getToken().then((json) => setToken(json.token));
-  // }, []);
-
   const {
     register,
     control,
@@ -47,49 +41,40 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      name: 'Andrew',
-      email: 'uchiha@mail.com',
-      phone: '+380958224416',
+      name: '',
+      email: '',
+      phone: '',
       position_id: '1',
-      image: [],
+      photo: [],
     },
     mode: 'onBlur',
     resolver: yupResolver(userSchema),
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('email', data.email);
-    formData.append('phone', data.phone);
-    formData.append('image', data.image[0]);
+    try {
+      const token = await getToken();
 
-    console.log('data', formData);
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('phone', data.phone);
+      formData.append('position_id', data.position_id);
+      formData.append('photo', data.photo[0]);
+
+      // const res = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+      //   method: 'POST',
+      //   headers: { Token: token.token },
+      //   body: formData,
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => console.log(data));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // const onSubmit = async (data: any) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('name', data.name);
-  //     formData.append('email', data.email);
-  //     formData.append('phone', data.phone);
-  //     // formData.append('image', data.image[0]);
-
-  //     console.log(formData);
-
-  //     // const res = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
-  //     //   method: 'POST',
-  //     //   headers: { Token: token },
-  //     //   body: formData,
-  //     // })
-  //     //   .then((res) => res.json())
-  //     //   .then((data) => console.log(data));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <ThemeProvider theme={innerTheme}>
@@ -128,7 +113,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
               <RadioInput control={control} />
             </div>
           </div>
-          <FileInput error={errors.image} control={control} />
+          <FileInput error={errors.photo} control={control} />
           <Button
             type="submit"
             text="Sign up"

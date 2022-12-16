@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Control, FieldError, FieldValues, Merge } from 'react-hook-form';
+import { Control, FieldError, Merge } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { FormValues } from '../../../../types/typings';
 
@@ -21,7 +21,7 @@ const FileInput: React.FC<IFileInputProps> = ({ error, control }) => {
   return (
     <Controller
       control={control}
-      name="image"
+      name="photo"
       render={({ field }) => (
         <div className={styles.fileInput__container}>
           <div onClick={handleClick}>

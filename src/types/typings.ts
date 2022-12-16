@@ -34,5 +34,5 @@ export type FormValues = {
   email: string;
   phone: string;
   position_id: string;
-  image: File[];
+  photo: File[];
 };
