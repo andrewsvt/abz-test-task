@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import styles from './Form.module.scss';
 import { CircularProgress, createTheme, Theme, ThemeProvider } from '@mui/material';
-import TextField from './UI/TextField/TextField';
-import RadioInput from './UI/RadioInput/RadioInput';
-import FileInput from './UI/FileInput/FileInput';
+import TextField from '../UI/TextField/TextField';
+import RadioInput from '../UI/RadioInput/RadioInput';
+import FileInput from '../UI/FileInput/FileInput';
 import { Button } from '../Button/Button';
 import successImage from '../../assets/success-image.svg';
 
@@ -42,9 +42,9 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      name: 'Andre',
-      email: 'andre@gmail.com',
-      phone: '+380958224412',
+      name: '',
+      email: '',
+      phone: '',
       position_id: '1',
       photo: [],
     },
@@ -122,7 +122,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
                   label="Phone"
                   type="text"
                   error={Boolean(errors.phone?.message)}
-                  helperText={errors.phone ? errors.phone?.message : '+38 (XXX) XXX - XX -XX'}
+                  helperText={errors.phone ? errors.phone?.message : '+38 (XXX) XXX - XX - XX'}
                   {...register('phone')}
                 />
               </div>

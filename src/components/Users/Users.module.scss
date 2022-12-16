@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   gap: 50px;
-  max-width: 1170px - 16px;
+  max-width: 1170px + 32px;
   margin: auto;
   margin-bottom: 140px;
   width: 100%;
@@ -29,6 +29,7 @@
 
   &__grid {
     display: grid;
+    width: 100%;
     gap: 29px;
     grid-template-columns: repeat(3, 1fr);
 

@@ -4,7 +4,7 @@ import { FormControlLabel, RadioGroup } from '@mui/material';
 import { RadioCheckedIcon, RadioIcon, StyledRadio } from '../FormStyledComponents';
 
 import { Control } from 'react-hook-form';
-import { FormValues, IPositionsResponse } from '../../../../types/typings';
+import { FormValues, IPositionsResponse } from '../../../types/typings';
 import { Controller } from 'react-hook-form';
 
 interface IRadioInputProps {

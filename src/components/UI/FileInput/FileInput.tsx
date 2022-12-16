@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Control, FieldError, Merge } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { FormValues } from '../../../../types/typings';
+import { FormValues } from '../../../types/typings';
 
 import styles from './FileInput.module.scss';
 
