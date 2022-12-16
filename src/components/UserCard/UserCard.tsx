@@ -7,7 +7,7 @@ import { StyledTooltip } from '../UI/Tooltip/Tooltip';
 import styles from './UserCard.module.scss';
 
 const UserCard: React.FC<IUserObj> = ({ name, email, position, phone, photo, id }) => {
-  const tooltipHandler = (value: string, maxLength = 39) => {
+  const tooltipHandler = (value: string, maxLength = 42) => {
     if (value.length > maxLength) {
       return (
         <StyledTooltip title={value}>

@@ -38,6 +38,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
   const {
     register,
     control,
+    trigger,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -136,7 +137,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
                   )}
                 </div>
               </div>
-              <FileInput error={errors.photo} control={control} />
+              <FileInput error={errors.photo} control={control} trigger={trigger} />
               <Button
                 type="submit"
                 text="Sign up"

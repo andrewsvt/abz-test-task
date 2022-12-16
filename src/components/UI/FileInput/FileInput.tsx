@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Control, FieldError, Merge } from 'react-hook-form';
+import { Control, FieldError, Merge, UseFormTrigger } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { FormValues } from '../../../types/typings';
 
@@ -8,9 +8,10 @@ import styles from './FileInput.module.scss';
 interface IFileInputProps {
   error?: Merge<FieldError, (FieldError | undefined)[]>;
   control: Control<FormValues, any>;
+  trigger: UseFormTrigger<FormValues>;
 }
 
-const FileInput: React.FC<IFileInputProps> = ({ error, control }) => {
+const FileInput: React.FC<IFileInputProps> = ({ error, control, trigger }) => {
   const [ImageFile, setImageFile] = useState<FileList | null>();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,6 +34,7 @@ const FileInput: React.FC<IFileInputProps> = ({ error, control }) => {
               onChange={(e) => {
                 field.onChange(e.target.files);
                 setImageFile(e.target.files);
+                trigger('photo');
               }}
               // onBlur={field.onBlur}
             />
