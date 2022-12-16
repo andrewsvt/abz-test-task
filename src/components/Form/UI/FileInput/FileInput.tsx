@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Control, FieldError, FieldValues, Merge } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { FormValues } from '../../../../types/typings';
@@ -11,6 +11,7 @@ interface IFileInputProps {
 }
 
 const FileInput: React.FC<IFileInputProps> = ({ error, control }) => {
+  const [ImageFile, setImageFile] = useState<FileList | null>();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -31,6 +32,7 @@ const FileInput: React.FC<IFileInputProps> = ({ error, control }) => {
               ref={inputRef}
               onChange={(e) => {
                 field.onChange(e.target.files);
+                setImageFile(e.target.files);
               }}
               // onBlur={field.onBlur}
             />
@@ -39,7 +41,12 @@ const FileInput: React.FC<IFileInputProps> = ({ error, control }) => {
               type="button">
               Upload
             </button>
-            <div className={styles.label}>{'Upload your photo'}</div>
+            <div
+              className={`${styles.label} ${ImageFile?.length ? styles.file : ''} ${
+                error?.message ? styles.error__label : ''
+              }`}>
+              {ImageFile?.length ? ImageFile[0].name : 'Upload your photo'}
+            </div>
           </div>
           {error?.message ? <p className={styles.errorText}>{error?.message}</p> : ''}
         </div>
