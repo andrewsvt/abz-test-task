@@ -8,6 +8,7 @@ import TextField from './UI/TextField/TextField';
 import RadioInput from './UI/RadioInput/RadioInput';
 import FileInput from './UI/FileInput/FileInput';
 import { Button } from '../Button/Button';
+import successImage from '../../assets/success-image.svg';
 
 import { userSchema } from '../../utils/userSchema';
 
@@ -52,6 +53,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
   });
 
   const [positions, setPositions] = useState<IPositionsResponse>();
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     getPositions().then((json) => setPositions(json));
@@ -70,13 +72,18 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
 
       console.log(data);
 
-      // const res = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
-      //   method: 'POST',
-      //   headers: { Token: token.token },
-      //   body: formData,
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => console.log(data));
+      const res = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
+        method: 'POST',
+        headers: { Token: token.token },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            setIsSuccess(true);
+          }
+        });
     } catch (err) {
       console.log(err);
     }
@@ -87,48 +94,57 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
   return (
     <ThemeProvider theme={innerTheme}>
       <div ref={formScrollRef} className={styles.formContainer}>
-        <h1>Working with POST request</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.form__textFields}>
-            <TextField
-              label="Your name"
-              type="text"
-              error={Boolean(errors.name?.message)}
-              helperText={errors.name?.message}
-              {...register('name')}
-            />
-            <TextField
-              label="Email"
-              type="email"
-              error={Boolean(errors.email?.message)}
-              helperText={errors.email?.message}
-              {...register('email')}
-            />
-            <TextField
-              label="Phone"
-              type="text"
-              error={Boolean(errors.phone?.message)}
-              helperText={errors.phone ? errors.phone?.message : '+38 (XXX) XXX - XX -XX'}
-              {...register('phone')}
-            />
-          </div>
-          <div className={styles.form__position}>
-            <p>Select your position</p>
-            <div className={styles.form__radio}>
-              {positions ? (
-                <RadioInput positions={positions} control={control} />
-              ) : (
-                <CircularProgress />
-              )}
-            </div>
-          </div>
-          <FileInput error={errors.photo} control={control} />
-          <Button
-            type="submit"
-            text="Sign up"
-            isDisabled={Boolean(errors.email || errors.name || errors.phone || errors.photo)}
-          />
-        </form>
+        {isSuccess ? (
+          <>
+            <h1 className={styles.formContainer__h1}>User successfully registered</h1>
+            <img src={successImage} alt="" />
+          </>
+        ) : (
+          <>
+            <h1 className={styles.formContainer__h1}>Working with POST request</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+              <div className={styles.form__textFields}>
+                <TextField
+                  label="Your name"
+                  type="text"
+                  error={Boolean(errors.name?.message)}
+                  helperText={errors.name?.message}
+                  {...register('name')}
+                />
+                <TextField
+                  label="Email"
+                  type="email"
+                  error={Boolean(errors.email?.message)}
+                  helperText={errors.email?.message}
+                  {...register('email')}
+                />
+                <TextField
+                  label="Phone"
+                  type="text"
+                  error={Boolean(errors.phone?.message)}
+                  helperText={errors.phone ? errors.phone?.message : '+38 (XXX) XXX - XX -XX'}
+                  {...register('phone')}
+                />
+              </div>
+              <div className={styles.form__position}>
+                <p>Select your position</p>
+                <div className={styles.form__radio}>
+                  {positions ? (
+                    <RadioInput positions={positions} control={control} />
+                  ) : (
+                    <CircularProgress />
+                  )}
+                </div>
+              </div>
+              <FileInput error={errors.photo} control={control} />
+              <Button
+                type="submit"
+                text="Sign up"
+                isDisabled={Boolean(errors.email || errors.name || errors.phone || errors.photo)}
+              />
+            </form>
+          </>
+        )}
       </div>
     </ThemeProvider>
   );

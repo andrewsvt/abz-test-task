@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
   max-width: 1170px - 32px;
   margin: auto;
   margin-bottom: 100px;
@@ -18,6 +17,10 @@
   @include breakpoints.xs {
     max-width: 328px;
     padding: 0;
+  }
+
+  &__h1{
+    margin-bottom: 50px;
   }
 }
 
