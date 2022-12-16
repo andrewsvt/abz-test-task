@@ -1,0 +1,48 @@
+@use '/src/styles/variables';
+@use '/src/styles/breakpoints';
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding: 0;
+
+  @include breakpoints.md {
+    padding: 0 60px;
+  }
+
+  @include breakpoints.sm {
+    padding: 0 32px;
+  }
+
+  @include breakpoints.xs {
+    padding: 0 16px;
+  }
+
+  &__container {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1170px - 32px;
+    padding: 0 16px;
+  }
+
+  @include breakpoints.md {
+    padding: 0;
+  }
+
+  img {
+    width: 104px;
+    height: 26px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+  }
+}

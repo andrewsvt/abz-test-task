@@ -1,0 +1,56 @@
+@use '/src/styles/breakpoints';
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 650px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/jpg/banner_lg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  color: #fff;
+  margin-bottom: 140px;
+
+  @include breakpoints.md {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/jpg/banner_md.jpg');
+  }
+
+  @include breakpoints.sm {
+    height: 500px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/jpg/banner_sm.jpg');
+  }
+
+  @include breakpoints.xs {
+    height: 500px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/jpg/banner_xs.jpg');
+  }
+  
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+
+    @include breakpoints.xs {
+      padding: 40px 16px 71px 16px;
+    }
+  }
+
+  &__textblock {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    max-width: 380px;
+  }
+
+  & h1 {
+    margin-bottom: 21px;
+  }
+
+  & p {
+    margin-bottom: 32px;
+  }
+}

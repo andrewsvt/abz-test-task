@@ -1,0 +1,61 @@
+@use '/src/styles/variables';
+
+.fileInput__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-bottom: 50px;
+
+  & div {
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+  }
+
+  .input {
+    display: none;
+  }
+
+  .button {
+    border: 1px solid variables.$dark-text;
+    border-radius: 4px 0 0 4px;
+    width: 83px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: variables.$dark-text;
+    background-color: variables.$bg;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .__error{
+    border: 1px solid variables.$error;
+    color: variables.$dark-text;
+  }
+
+  .label {
+    border: 1px solid variables.$input-border;
+    border-radius: 0 4px 4px 0;
+    height: 100%;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: start;
+    padding: 0 0 0 16px;
+    color: variables.$input-text;
+    background-color: variables.$bg;
+    font-size: 16px;
+  }
+
+  .errorText {
+    position: absolute;
+    color: variables.$error;
+    font-size: 12px;
+    line-height: 14px;
+    transform: translate(16px, 58px);
+  }
+}

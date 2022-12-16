@@ -1,0 +1,37 @@
+@use '/src/styles/variables';
+
+.button {
+  width: 100px;
+  height: 34px;
+  background-color: variables.$primary;
+  border-radius: 80px;
+  color: variables.$dark-text;
+  cursor: pointer;
+
+  &:hover {
+    background-color: variables.$primary-hover;
+  }
+
+  &:disabled {
+    color: variables.$light-text;
+    background-color: variables.$disabled;
+    cursor: default;
+  }
+}
+
+.button__wide {
+  width: 120px;
+  height: 34px;
+  background-color: variables.$primary;
+  border-radius: 80px;
+  color: variables.$dark-text;
+  cursor: pointer;
+
+  &:hover {
+    background-color: variables.$primary-hover;
+  }
+
+  &:disabled {
+    background-color: variables.$disabled
+  }
+}

@@ -1,0 +1,69 @@
+@use '/src/styles/breakpoints';
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  max-width: 1170px - 32px;
+  margin: auto;
+  margin-bottom: 100px;
+  padding: 0 16px;
+  width: 100%;
+
+  @include breakpoints.sm {
+    max-width: 704px;
+  }
+
+  @include breakpoints.xs {
+    max-width: 328px;
+    padding: 0;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 380px;
+
+  @include breakpoints.sm {
+    max-width: 380px;
+    width: 100%;
+  }
+
+  @include breakpoints.xs {
+    padding: 0;
+    width: 100%;
+  }
+
+  &__textFields {
+    width: 100%;
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+    margin-bottom: 21px;
+
+    p {
+      margin: 4px 14px;
+      line-height: 14px;
+      font-size: 12px;
+    }
+  }
+
+  &__position {
+    width: 100%;
+    margin-bottom: 47px;
+
+    p {
+      text-align: start;
+      margin-bottom: 11px;
+    }
+
+    span {
+      line-height: 26px;
+      font-size: 16px;
+    }
+  }
+}

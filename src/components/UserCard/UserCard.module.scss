@@ -1,0 +1,109 @@
+@use '/src/styles/breakpoints';
+@use '/src/styles/variables';
+
+.usercard {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+  width: 100%;
+  height: 254px;
+  background-color: white;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+
+  // @include breakpoints.md {
+  //   width: 282px;
+  // }
+
+  // @include breakpoints.sm {
+  //   width: 334px;
+  // }
+
+  // @include breakpoints.xs {
+  //   width: 328px;
+  // }
+
+  &__img {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+  }
+
+  & div {
+    width: 100%;
+  }
+
+  p, div p {
+    width: 100%;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // @include breakpoints.md {
+    //   width: 242px;
+    // }
+
+    // @include breakpoints.sm {
+    //   width: 304px;
+    // }
+
+    // @include breakpoints.xs {
+    //   width: 228px;
+    // }
+  }
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 370px;
+  height: 254px;
+  background-color: white;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+
+  @include breakpoints.md {
+    width: 282px;
+  }
+
+  @include breakpoints.sm {
+    width: 334px;
+  }
+
+  @include breakpoints.xs {
+    width: 328px;
+  }
+
+  div {
+    background-color: variables.$bg;
+  }
+
+  &__img {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+  }
+
+  &__heading {
+    width: 140px;
+    height: 26px;
+  }
+
+  &__text {
+    width: 220px;
+    height: 78px;
+  }
+
+  span svg {
+    color: variables.$secondary;
+    border-radius: 100%;
+  }
+}
+
