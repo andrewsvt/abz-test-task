@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { FormControlLabel, RadioGroup } from '@mui/material';
 import { RadioCheckedIcon, RadioIcon, StyledRadio } from '../FormStyledComponents';
 
-import { getPositions } from '../../../../utils/api';
-import { IPositionsResponse } from '../../../../types/typings';
 import { Control } from 'react-hook-form';
-import { FormValues } from '../../../../types/typings';
+import { FormValues, IPositionsResponse } from '../../../../types/typings';
 import { Controller } from 'react-hook-form';
 
 interface IRadioInputProps {
   control: Control<FormValues, any>;
+  positions: IPositionsResponse;
 }
 
-const RadioInput: React.FC<IRadioInputProps> = ({ control }) => {
-  const [positions, setPositions] = useState<IPositionsResponse>();
-
-  useEffect(() => {
-    getPositions().then((json) => setPositions(json));
-  }, []);
-
+const RadioInput: React.FC<IRadioInputProps> = ({ control, positions }) => {
   return (
     <Controller
       control={control}

@@ -1,17 +1,18 @@
 import * as yup from 'yup';
 
-const fileResolution = (value: File): Promise<boolean> => {
+const fileResolution = (value: File[]): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     try {
-      const url = URL.createObjectURL(value);
-      console.log('url', url);
+      const url = URL.createObjectURL(value[0]);
       const img = new Image();
 
-      img.onload = function () {
-        resolve(img.height > 70 && img.width > 70);
+      img.onload = () => {
+        resolve(img.width > 70 && img.height > 70);
       };
 
       img.src = url;
+
+      img.onerror = reject;
     } catch (error) {
       resolve(false);
     }
@@ -41,10 +42,17 @@ export const userSchema = yup.object({
   position_id: yup.string().required('Required field'),
   photo: yup
     .mixed()
-    .required('Required field')
-    .test('fileSize', 'The file is too large', (value) => value[0].size <= 5242880)
-    .test('type', 'Only jpeg images supported', (value) => {
-      return value[0].type === ('image/jpeg' || 'image/jpg');
-    }),
-  // .test('fileResolution', 'Image must be 70x70 at least', fileResolution),
+    .test('required', 'Required field', (value) => value.length)
+    .test(
+      'fileSize',
+      'Image must be less than 5MB',
+      (value) => value.length && value[0].size <= 5242880,
+    )
+    .test(
+      'type',
+      'Only jpeg images supported',
+      (value) => value.length && value[0].type === ('image/jpeg' || 'image/jpg'),
+    )
+    .defined()
+    .test('fileResolution', 'Image must be 70x70 at least', fileResolution),
 });

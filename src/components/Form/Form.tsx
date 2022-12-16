@@ -1,19 +1,19 @@
-import React, { MutableRefObject } from 'react';
+import React, { MutableRefObject, useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { createTheme, Theme, ThemeProvider } from '@mui/material';
+import styles from './Form.module.scss';
+import { CircularProgress, createTheme, Theme, ThemeProvider } from '@mui/material';
 import TextField from './UI/TextField/TextField';
-import { Button } from '../Button/Button';
+import RadioInput from './UI/RadioInput/RadioInput';
 import FileInput from './UI/FileInput/FileInput';
+import { Button } from '../Button/Button';
 
 import { userSchema } from '../../utils/userSchema';
 
-import styles from './Form.module.scss';
-import RadioInput from './UI/RadioInput/RadioInput';
-import { getToken } from '../../utils/api';
+import { getToken, getPositions } from '../../utils/api';
 
-import { FormValues } from '../../types/typings';
+import { FormValues, IPositionsResponse } from '../../types/typings';
 
 interface IFormProps {
   formScrollRef: MutableRefObject<HTMLDivElement | null>;
@@ -41,15 +41,21 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
+      name: 'Andre',
+      email: 'andre@gmail.com',
+      phone: '+380958224412',
       position_id: '1',
       photo: [],
     },
     mode: 'onBlur',
     resolver: yupResolver(userSchema),
   });
+
+  const [positions, setPositions] = useState<IPositionsResponse>();
+
+  useEffect(() => {
+    getPositions().then((json) => setPositions(json));
+  }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -61,6 +67,8 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
       formData.append('phone', data.phone);
       formData.append('position_id', data.position_id);
       formData.append('photo', data.photo[0]);
+
+      console.log(data);
 
       // const res = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
       //   method: 'POST',
@@ -87,7 +95,6 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
               type="text"
               error={Boolean(errors.name?.message)}
               helperText={errors.name?.message}
-              // ref={register}
               {...register('name')}
             />
             <TextField
@@ -95,7 +102,6 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
               type="email"
               error={Boolean(errors.email?.message)}
               helperText={errors.email?.message}
-              // ref={register}
               {...register('email')}
             />
             <TextField
@@ -103,21 +109,24 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
               type="text"
               error={Boolean(errors.phone?.message)}
               helperText={errors.phone ? errors.phone?.message : '+38 (XXX) XXX - XX -XX'}
-              // ref={register}
               {...register('phone')}
             />
           </div>
           <div className={styles.form__position}>
             <p>Select your position</p>
             <div className={styles.form__radio}>
-              <RadioInput control={control} />
+              {positions ? (
+                <RadioInput positions={positions} control={control} />
+              ) : (
+                <CircularProgress />
+              )}
             </div>
           </div>
           <FileInput error={errors.photo} control={control} />
           <Button
             type="submit"
             text="Sign up"
-            isDisabled={Boolean(errors.email || errors.name || errors.phone)}
+            isDisabled={Boolean(errors.email || errors.name || errors.phone || errors.photo)}
           />
         </form>
       </div>
