@@ -25,7 +25,10 @@ export const userSchema = yup.object({
     .required('Required field')
     .min(2, 'Must be at least 2 characters')
     .max(60, 'Username should contain 2-60 characters')
-    .matches(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/, 'Invalid name format'),
+    .matches(
+      /^[a-zA-Zа-яА-ЯіІїЇєЄ]+(([',. -][a-zA-Zа-яА-ЯіІїЇєЄ ])?[a-zA-Zа-яА-ЯіІїЇєЄ]*)*$/,
+      'Invalid name format',
+    ),
   email: yup
     .string()
     .required('Required field')

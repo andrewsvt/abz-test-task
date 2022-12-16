@@ -71,8 +71,6 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
       formData.append('position_id', data.position_id);
       formData.append('photo', data.photo[0]);
 
-      console.log(data);
-
       const res = await fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
         method: 'POST',
         headers: { Token: token.token },
@@ -89,8 +87,6 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
       console.log(err);
     }
   };
-
-  // console.log(errors);
 
   return (
     <ThemeProvider theme={innerTheme}>

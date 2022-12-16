@@ -46,7 +46,6 @@ const Users: React.FC<IUsersProps> = ({ usersScrollRef }) => {
     getUsers(usersPage.currentPage);
   };
 
-  console.log('users', users);
   return (
     <section ref={usersScrollRef} className={styles.users}>
       <h1>Working with GET request</h1>
