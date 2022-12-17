@@ -22,7 +22,7 @@ const fileResolution = (value: File[]): Promise<boolean> => {
 export const userSchema = yup.object({
   name: yup
     .string()
-    .required('Required field')
+    .required('Name is required')
     .min(2, 'Must be at least 2 characters')
     .max(60, 'Username should contain 2-60 characters')
     .matches(
@@ -31,7 +31,7 @@ export const userSchema = yup.object({
     ),
   email: yup
     .string()
-    .required('Required field')
+    .required('Email is required')
     .min(2, 'Must be at least 2 characters')
     .max(100, 'Email should contain 2-100 characters')
     .matches(
@@ -40,12 +40,12 @@ export const userSchema = yup.object({
     ),
   phone: yup
     .string()
-    .required('Required field')
+    .required('Phone is required')
     .matches(/^[\+]{0,1}380([0-9]{9})$/, 'Invalid phone format'),
-  position_id: yup.string().required('Required field'),
+  position_id: yup.string().required('Position is required'),
   photo: yup
     .mixed()
-    .test('required', 'Required field', (value) => value.length)
+    .test('required', 'Image is required', (value) => value.length)
     .test(
       'fileSize',
       'Image must be less than 5MB',

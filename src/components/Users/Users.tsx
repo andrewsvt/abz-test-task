@@ -7,6 +7,7 @@ import UserSkeleton from '../UserCard/UserSkeleton';
 import styles from './Users.module.scss';
 
 import { IUserObj, IUserPage, IUserResponse } from '../../types/typings';
+import { CircularProgress } from '@mui/material';
 
 interface IUsersProps {
   usersScrollRef: MutableRefObject<HTMLDivElement | null>;
@@ -16,6 +17,7 @@ const Users: React.FC<IUsersProps> = ({ usersScrollRef }) => {
   const [usersPage, setUsersPage] = useState<IUserPage>({ currentPage: 1, totalPages: 0 });
   const [users, setUsers] = useState<IUserObj[]>([]);
   const [isDisabled, setDisabled] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getUsers(1);
@@ -43,7 +45,8 @@ const Users: React.FC<IUsersProps> = ({ usersScrollRef }) => {
   };
 
   const showMore = () => {
-    getUsers(usersPage.currentPage);
+    setLoading(true);
+    getUsers(usersPage.currentPage).then(() => setLoading(false));
   };
 
   return (
@@ -64,7 +67,11 @@ const Users: React.FC<IUsersProps> = ({ usersScrollRef }) => {
             ))
           : [...Array(6)].map((card, index) => <UserSkeleton key={index} />)}
       </div>
-      <WideButton onClick={showMore} text={'Show more'} isDisabled={isDisabled} />
+      {isLoading ? (
+        <CircularProgress sx={{ color: '#00BDD3' }} />
+      ) : (
+        <WideButton onClick={showMore} text={'Show more'} isDisabled={isDisabled} />
+      )}
     </section>
   );
 };

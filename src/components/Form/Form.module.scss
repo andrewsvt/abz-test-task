@@ -44,9 +44,15 @@
   &__textFields {
     width: 100%;
     display: flex;
-    gap: 50px;
     flex-direction: column;
     margin-bottom: 21px;
+
+    & > div:nth-child(1) {
+      margin-bottom: 28px;
+    }
+    & > div:nth-child(2) {
+      margin-bottom: 28px;
+    }
 
     p {
       margin: 4px 14px;

@@ -55,6 +55,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
 
   const [positions, setPositions] = useState<IPositionsResponse>();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getPositions().then((json) => setPositions(json));
@@ -62,6 +63,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
+      setLoading(true);
       const token = await getToken();
 
       const formData = new FormData();
@@ -81,6 +83,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
           console.log(data);
           if (data.success) {
             setIsSuccess(true);
+            setLoading(false);
           }
         });
     } catch (err) {
@@ -134,11 +137,21 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
                 </div>
               </div>
               <FileInput error={errors.photo} control={control} trigger={trigger} />
-              <Button
-                type="submit"
-                text="Sign up"
-                isDisabled={Boolean(errors.email || errors.name || errors.phone || errors.photo)}
-              />
+              {isLoading ? (
+                <CircularProgress sx={{ color: '#00BDD3' }} />
+              ) : (
+                <Button
+                  type="submit"
+                  text="Sign up"
+                  isDisabled={Boolean(
+                    errors.email ||
+                      errors.name ||
+                      errors.phone ||
+                      errors.position_id ||
+                      errors.photo,
+                  )}
+                />
+              )}
             </form>
           </>
         )}

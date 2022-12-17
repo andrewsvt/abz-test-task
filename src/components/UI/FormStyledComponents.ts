@@ -3,20 +3,20 @@ import { withStyles } from '@mui/styles';
 
 export const StyledTextField = withStyles({
   root: {
-    // '& label, & label.Mui-focused': {
-    //   color: '#7E7E7E',
-    // },
-    // '& .MuiOutlinedInput-root': {
-    //   '& fieldset': {
-    //     borderColor: '#D0CFCF',
-    //   },
-    //   '&:hover fieldset': {
-    //     borderColor: '#D0CFCF',
-    //   },
-    //   '&.Mui-focused fieldset': {
-    //     borderColor: '#D0CFCF',
-    //   },
-    // },
+    '& label, & label.Mui-focused': {
+      color: '#7E7E7E',
+    },
+    '& label.Mui-error': {
+      color: '#CB3D40',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset, &:hover fieldset, &.Mui-focused fieldset': {
+        borderColor: '#D0CFCF',
+      },
+      '&.Mui-error fieldset, &.Mui-error:hover fieldset': {
+        borderColor: '#CB3D40',
+      },
+    },
   },
 })(TextField);
 

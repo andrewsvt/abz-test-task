@@ -45,7 +45,8 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
-    max-width: 380px;
+    max-width: 380px + 32px;
+    padding: 0 16px;
   }
 
   & h1 {

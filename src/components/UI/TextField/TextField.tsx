@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { StyledTextField } from '../FormStyledComponents';
 
+import styles from './TextField.module.scss';
 interface ITextFieldProps {
   label: string;
   type: string;
@@ -11,7 +12,9 @@ interface ITextFieldProps {
 
 const TextField: React.FC<ITextFieldProps> = forwardRef((props, ref) => {
   return (
-    <StyledTextField variant="outlined" color="secondary" fullWidth inputRef={ref} {...props} />
+    <div className={styles.container}>
+      <StyledTextField variant="outlined" color="secondary" fullWidth inputRef={ref} {...props} />
+    </div>
   );
 });
 
