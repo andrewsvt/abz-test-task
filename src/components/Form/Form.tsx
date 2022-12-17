@@ -49,7 +49,7 @@ const Form: React.FC<IFormProps> = ({ formScrollRef }) => {
       position_id: '1',
       photo: [],
     },
-    mode: 'onBlur',
+    mode: 'onTouched',
     resolver: yupResolver(userSchema),
   });
 
