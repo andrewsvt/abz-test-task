@@ -15,6 +15,7 @@ import { userSchema } from '../../utils/userSchema';
 import { getToken, getPositions } from '../../utils/api';
 
 import { FormValues, IPositionsResponse } from '../../types/typings';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 interface IFormProps {
   formScrollRef: MutableRefObject<HTMLDivElement | null>;

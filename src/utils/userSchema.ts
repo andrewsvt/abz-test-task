@@ -7,7 +7,7 @@ const fileResolution = (value: File[]): Promise<boolean> => {
       const img = new Image();
 
       img.onload = () => {
-        resolve(img.width > 70 && img.height > 70);
+        resolve(img.width >= 70 && img.height >= 70);
       };
 
       img.src = url;
@@ -41,7 +41,7 @@ export const userSchema = yup.object({
   phone: yup
     .string()
     .required('Phone is required')
-    .matches(/^[\+]{0,1}380([0-9]{9})$/, 'Invalid phone format'),
+    .matches(/^[\+]{0,1}380([0-9]{9})$/, 'Please follow the pattern +38 (XXX) XXX - XX - XX'),
   position_id: yup.string().required('Position is required'),
   photo: yup
     .mixed()
