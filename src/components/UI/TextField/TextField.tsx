@@ -7,12 +7,20 @@ interface ITextFieldProps {
   type: string;
   error: boolean;
   helperText?: string | undefined;
+  ref?: any;
 }
 
-const TextField: React.FC<ITextFieldProps> = forwardRef((props) => {
+const TextField: React.FC<ITextFieldProps> = forwardRef((props, ref) => {
   return (
     <div className={styles.container}>
-      <StyledTextField required variant="outlined" color="secondary" fullWidth {...props} />
+      <StyledTextField
+        required
+        variant="outlined"
+        color="secondary"
+        fullWidth
+        inputRef={ref}
+        {...props}
+      />
     </div>
   );
 });
